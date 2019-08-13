@@ -12,18 +12,10 @@
 html,
 body {
   margin: 0;
-  padding: 0;
-  background-color: var(--reddit-bg-color);
+  padding: 0;  
+  background: #efefef;
   height: 100%;
-  font-family: -apple-system, 'Open Sans', 'Helvetica Neue', sans-serif;
-}
-
-footer {
-  border-top: 1px solid var(--reddit-grey);
-  padding: 10px;
-  background-color: white;
-  min-height: 50px;
-  text-align: right;
+  font-family: -apple-system, 'Open Sans', 'Helvetica Neue', sans-serif;  
 }
 
 .alt-text {
@@ -36,25 +28,6 @@ footer {
   align-items: center;
 }
 
-.banner {
-  display: flex;
-  flex-direction: row;
-  flex-wrap: nowrap;
-  justify-content: space-between;
-  align-items: center;
-  background-color: white;
-  min-height: 50px;
-  border-bottom: 1px solid var(--reddit-grey);
-}
-
-#logo {
-  color: white;
-  font-size: var(--body-text-size);
-  width: 40px;
-  height: 40px;
-  background-color: var(--reddit-orange);
-  border-radius: 50%;
-}
 
 #search {
   background-color: var(--reddit-bg-color);
@@ -64,44 +37,328 @@ footer {
   padding: 7.5px 15px;
   outline: none;
   border: 1px solid var(--reddit-grey);
-  border-radius: 4px;
+  border-radius: 6px;
 }
 
 #search::placeholder {
   letter-spacing: 0.5px;
-  font-size: var(--body-text-size);
+  font-size: 12px;
 }
 
 #search:focus {
   background-color: white;
-  border-color: var(--reddit-blue);
+  border: 1px solid #2271a9;
 }
 
-.button {
-  border: 1px solid var(--reddit-blue);
-  border-radius: 4px;
-  text-transform: uppercase;
-  padding: 7.5px 15px;
+.publicPostExtra {
+  min-width: 800px;
+  max-width: 1000px;
+  width: 80%;
+  margin: 20px auto;
+  padding: 0;
+}
+
+
+.publicPost {
+  min-width: 800px;
+  max-width: 1000px;
+  width: 80%;
+  margin: 20px auto;
+  padding: 0;
+}
+
+.voteComment { 
+    float: left;
+    height: 100%;    
+}
+
+.rightBox {
+    float: right; 
+    height: 100%; 
+}
+
+
+.publicBox {
+  margin: 20px 0;
+  background-color: white;  
+}
+
+.titleLayout {
+  padding: 0;
+  margin: 10px;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content: space-between;
+  height: 25px;
+}
+
+.publicLayout {
+  position: relative;
+  top: 5px;
+  align-items: center;  
+  padding: 4px;
+  margin: 10px;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content: space-between;
+  height: 20px;
+  font-size: 14px;
+  color: var(--reddit-blue);  
+}
+
+.description {
+  padding-bottom: 4px; 
+  padding-right: 4px;
+  font-weight: normal; 
+  margin-left: 12px;
+  position: relative;
+  bottom: 10px;
+}
+
+.postText {
+  padding-bottom: 4px; 
+  font-weight: normal; 
+  margin-left: 12px;
+  padding-right: 5px;  
+}
+
+.subseddit {
+  position: absolute;
+  left: 100px;
+  font-family: arial;
+  font-weight: bold;
+  font-size: 20px;  
+  color: #ffffff; 
+  text-shadow: 2px 2px #2271a9;
+  cursor: pointer;      
+}
+
+.subsedditFeed {
+  min-width: 800px;
+  max-width: 1000px;
+  width: 80%;
+  margin: 18px auto;
+  padding: 0;
+}
+
+
+#feed {
+  min-width: 800px;
+  max-width: 1000px;
+  width: 80%;
+  margin: 18px auto;
+  padding: 0;
+}
+
+.body-box {
+
+  background: white;
+  height: 700px;
+}
+
+.voteModal {
+  position: fixed; /* Stay in place */
+  z-index: 1; /* Sit on top */
+  left: 0;
+  top: 0;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  overflow: auto; /* Enable scroll if needed */
+  background-color: rgb(0,0,0); /* Fallback color */
+  background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+  padding-top: 60px;
+}
+
+.voteModalContent {
+  border-radius: 20px;
+  background: linear-gradient(70deg, #2271a9, #43136c);
+  margin: 5% auto; /* 15% from the top and centered */
+  width: 315px; /* Could be more or less, depending on screen size */
+  color: white;
+  font-weight: bold;
+  border: 8px solid #e7e7e7;  
+  padding-left: 15px;  
+  padding-right: 15px;  
+}
+
+.VoteClose {
+  position: relative;
+  left: 20px;
+  margin-top: -20px;
+  /* Position it in the top right corner outside of the modal */
+  color: #e5e5e5;
+  font-size: 30px;
   font-weight: bold;
 }
 
-.button-primary {
-  color: var(--reddit-blue);
+/* Close button on hover */
+.VoteClose:hover,
+.VoteClose:focus {
+  color: #ffffff;
+  cursor: pointer;
 }
 
-.button-secondary {
-  background-color: var(--reddit-blue);
+.voteModalList {
+  margin: 0;
+  padding-bottom: 15px;
+  padding-top: 10px;
+}
+
+.modal {
+  display: none;
+  position: fixed; /* Stay in place */
+  z-index: 1; /* Sit on top */
+  left: 0;
+  top: 0;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  overflow: auto; /* Enable scroll if needed */
+  background-color: rgb(0,0,0); /* Fallback color */
+  background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+  padding-top: 60px;
+}
+
+/* Modal Content/Box */
+.modal-content {
+
+  border-radius: 20px;
+  background: linear-gradient(70deg, #2271a9, #43136c);
+  margin: 5% auto; /* 15% from the top and centered */
+  border: 1px solid #888;
+  width: 300px; /* Could be more or less, depending on screen size */
   color: white;
+  font-weight: bold;
+  border: 8px solid #e7e7e7;  
+  
 }
 
-.banner > *,
-footer > * {
-  margin: 10px 25px;
+.updateClose {
+  position: relative;
+  left: 140px;
+  margin-top: -20px;
+  /* Position it in the top right corner outside of the modal */
+  color: #e5e5e5;
+  font-size: 30px;
+  font-weight: bold;
+  cursor: pointer;
 }
 
-.nav {
-  list-style-type: none;
-  padding: 0;
+
+/* The Close Button */
+.close {
+  position: relative;
+  left: 170px;
+  margin-top: -20px;
+  /* Position it in the top right corner outside of the modal */
+  color: #e5e5e5;
+  font-size: 30px;
+  font-weight: bold;
+}
+
+/* Close button on hover */
+.close:hover,
+.close:focus {
+  color: #ffffff;
+  cursor: pointer;
+}
+
+/* Full-width inputs */
+input[type=text], input[type=password] {
+  width: 100%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  display: inline-block;
+  border: 1px solid #ccc;
+  box-sizing: border-box;
+
+}
+
+input:hover, input:focus, postDescription:hover, .postDescription:focus {
+  border: 1px solid #6f6f6f;
+}
+
+/* Add padding to containers */
+.container {
+  padding: 16px;
+}
+
+/* Bordered form */
+form {
+  border: 3px solid #f1f1f1;
+}
+
+.cancelbtn {
+  width: auto;
+  padding: 10px 18px;
+  background-color: #f44336;
+}
+
+.loginButton {
+  margin-top: 10px;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  background-color: transparent;
+  color: white;
+  border: 2px solid #1e72ae;
+  border-radius: 4px;
+  width: 100px;
+  padding: 7.5px 15px;
+  font-weight: bold;
+  cursor: pointer; 
+  box-shadow: 1px 1px 0px #5e268f;   
+}
+
+.loginButton:hover {
+  background: #3855ad;
+}
+
+.loginError {
+  font-weight: normal;
+  padding-top: 10px;
+  text-align: center;
+}
+
+.author {
+	float: left;
+  font-weight: bold;
+  padding-right: 5px;
+  padding-left: 5px;  
+  font-size: 14px;
+  color: var(--reddit-blue);
+    margin: 0;
+    
+ 
+}
+
+.detailOther {
+	float: left;
+  font-size: 14px;
+  color: var(--reddit-blue);
+  padding-left: 5px;  
+  display: flex;
+    margin: 0;
+  align-items: center;
+  font-weight: bold;    
+}
+
+
+.detailNormal {
+	float: left;
+  font-weight: normal;
+    margin: 0;
+  font-size: 12px;
+  color: var(--reddit-blue);
+  display: flex;
+
+  align-items: center;  
+}
+
+.detailOther:hover {
+  color: #222b9f;
+  cursor: pointer;   
 }
 
 .nav-item {
@@ -111,22 +368,104 @@ footer > * {
   list-style-type: none;
 }
 
-#feed {
-  min-width: 500px;
-  max-width: 800px;
-  width: 80%;
-  margin: 20px auto;
-  padding: 0;
+.author:hover {
+  color: #222b9f; 
+  cursor: pointer;  
 }
 
-.feed-header {
+.feedDate {
+position: relative;
+  left: 5px;
+  bottom: 5px;
+    margin-left: 5px;
+  font-size: 12px;
+  color: #5e5e5e;
+}
+
+.profileLink {
+    margin: 0;
+  color: white;
+  font-size: 18px;
+  padding: 10px;
+  display: inline;
+  list-style-type: none;
+
+  font-weight: bold;
+
+  cursor: pointer;
+}
+
+.thumbnail {
   display: flex;
-  justify-content: space-between;
+  cursor: pointer;
+  max-height: 90px;
+  max-width: 90px;
+margin-left: auto;
+margin-right: auto;    
+  overflow: hidden
 }
 
-.feed-title {
-  font-weight: normal;
-  margin: 0;
+.postImage {
+  padding-top: 20px;
+  display: flex;
+  width: 100%;
+  max-width: 500px;
+margin-left: auto;
+margin-right: auto;  
+
 }
+
+.createThumb {
+  height: 90px;
+  width: 90px;
+  background: linear-gradient(70deg, #2f78b1, #174885, #4b2c9b);   
+  font-family: arial;
+  font-weight: bold;
+  font-size: 15px;
+  color: #ffffff; 
+  text-shadow: 1px 1px #1a5686;
+  cursor: pointer; 
+  
+  line-height: 90px;
+  text-align: center;
+  
+}
+
+.createThumb:hover {
+  background: linear-gradient(70deg, #174885, #4b2c9b, #2f78b1); 
+  cursor: pointer;   
+}
+
+.detailBox {
+  margin: 10px;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  align-items: center;   
+}
+
+.extraSpace {
+  flex-grow : 1;
+  cursor: pointer;
+}
+
+.profileTitle {
+
+  font-weight: bold;
+  align-items: center;  
+  padding: 2px;
+  margin: 5px;
+  display: flex;
+  height: 20px;
+  font-size: 16px;
+  color: #241b2e;
+}
+
+.profileInfo {
+
+  font-weight: normal !important;
+  padding-left: 4px;
+}
+
 
 /* Add your styles here */
