@@ -63,10 +63,13 @@
 }
 
 .comment {
-
   background-color: white;
   box-shadow: 1px 1px 2px #888888;
   border-right: 10px solid #21649b; 
+}
+
+.comment:hover {
+  border-right: 10px solid #594697;
 }
 
 :root {
