@@ -9,7 +9,10 @@
 
 // import your own scripts here.
 import { clearBody, showHideFeed } from './remove.js'
-import { buildLoggedIn, signUpStatus, loginStatus, sendComment, appendNewComment, getPostInfo, grabSubseddit, unfollowUser, followFunct, removePost } from './request.js'
+import { getUserInfo, updateStatus, followFunct, unfollowUser } from './users.js'
+import { sendComment, appendNewComment, getPostInfo, removePost } from './request.js'
+import { signUpStatus, createSignUp } from './signupLogin.js'
+import { upvotePost, downVotePost } from './vote.js'
 
 // your app must take an apiUrl as an argument --
 // this will allow us to verify your apps behaviour with 
@@ -369,7 +372,7 @@ function changePage(apiUrl, num) {
             createBasePage(apiUrl, page);    
             pageNum.innerText = parseInt(pageNum.innerText) - 1         
         }
-        });         
+    });         
 }
 
 // Add posts to a feed
@@ -430,7 +433,9 @@ function createFeedPost(myJson, apiUrl, check) {
     } 
     // If the feed is the subseddit feed
     else if (check === 5) {
-        document.getElementById('subsedditFeed').appendChild(feedPost);
+        if (document.getElementById('subsedditFeed')) {
+            document.getElementById('subsedditFeed').appendChild(feedPost);        
+        }
     }
                         
     // Create upvote/downvote section
@@ -892,61 +897,6 @@ function updateProfile(apiUrl, json) {
     updateModal.style.display = 'inline';          
 }
 
-// Update a user's information
-function updateStatus (apiUrl) {
-
-    // Generate data from modal inputs
-    const email = document.getElementById('emailInput').value;
-    const realName = document.getElementById('nameInput').value;          
-    const passOne = document.getElementById('updatePassOne').value; 
-    const passTwo = document.getElementById('updatePassTwo').value;  
-    const updateError = document.getElementById('updateError');
-    
-    // If all fields are empty, return an error
-    if (email === "" && realName === "" && 
-        passOne === "" && passTwo === "") {
-        updateError.innerText = "Fields must not be Empty";
-        return;
-    } 
-    // If passwords do not match, return error
-    else if (passOne != passTwo) {
-        updateError.innerText = "Passwords do not match";
-        return;   
-    } 
-    // If password is one character, return error 
-    else if (passOne.length === 1) {
-        updateError.innerText = "Password must be greater than one character";
-        return;       
-    }
-
-    // Send request to update user's details
-    let options = {
-        method: "PUT",
-        body: JSON.stringify({
-            "email": email, 
-            "name": realName, 
-            "password" :passOne
-        }),
-        headers: {
-            "Content-Type": "application/json",
-            "Authorization": "Token " + localStorage.getItem("token")  
-        },
-    };
-    fetch(`${apiUrl}/user`, options)
-    .then(response => {
-        response.json().then(json => {
-            // Live update details in profile
-            if (email) {
-                document.getElementById('emailAddress').innerText = email;
-            } 
-            if (realName) {
-                document.getElementById('realNameOut').innerText = realName;
-            }
-            document.getElementById('updateModal').remove();   
-        })
-    })         
-}
-
 // Create profile page for logged in user
 function profilePage(apiUrl, username) {
 
@@ -1100,223 +1050,6 @@ function profilePage(apiUrl, username) {
                 }
             });
         });    
-}
-
-// Show upvotes modal
-function showUserVotes(myJson, apiUrl) {
-    
-    // Create modal to show user's that have upvoted a post
-    const userVoteModal = document.createElement('div');
-    userVoteModal.id = 'userVoteModal';
-    userVoteModal.classList = 'voteModal';
-    root.appendChild(userVoteModal);    
-    
-    // Create modal wrapper
-    const userVoteWrapper = document.createElement('div');
-    userVoteWrapper.classList = 'voteModalContent';
-    userVoteModal.appendChild(userVoteWrapper);    
-    
-    const userVoteBox = document.createElement('div');
-    userVoteBox.id = 'userVoteBox';
-    userVoteWrapper.appendChild(userVoteBox);
-    
-    // Modal heading
-    const userVoteLabel = document.createElement('label');
-    userVoteLabel.innerText = "Users that have upvoted this post:";
-    userVoteBox.appendChild(userVoteLabel);
-        
-    // Modal x button
-    const closeVoteModal = document.createElement('span');
-    closeVoteModal.classList = 'VoteClose';
-    closeVoteModal.innerText = "x";
-    userVoteBox.appendChild(closeVoteModal);
-    
-    // Create a list of users
-    const userVoteList = document.createElement('ul');
-    userVoteList.classList = 'voteModalList';
-    userVoteBox.appendChild(userVoteList);
-    
-    // Check if the user has downvoted this post
-    let checkDown = document.getElementById('downVote' + myJson.id);
-    checkDown = parseInt(checkDown.attributes.checked.value);
-    let profile = document.getElementById('profileName');
-    let num = parseInt(profile.attributes.check.value)
-    let found = 0;
-    for (let i = 0; i < myJson.meta.upvotes.length; i++) { 
-        // If the upvote user id matches the user's id
-        if (myJson.meta.upvotes[i] === parseInt(num)) {
-            found = 1;
-        }
-        let checkUser = getUserInfo(apiUrl, myJson.meta.upvotes[i]);
-        checkUser.then(json => {
-            // If the upvote has already downvoted this post (live)
-            if (checkDown === 1 && json.id === parseInt(num)) {
-                return;
-            } else {
-                let userVoteName = document.createElement('li');        
-                userVoteName.innerText = json.username;
-                userVoteList.appendChild(userVoteName);            
-            }
-        });
-    }
-    
-    // Check if the user has upvoted this post
-    let checkUp = document.getElementById('upVote' + myJson.id);
-    checkUp = parseInt(checkUp.attributes.checked.value);
-    if (found === 0 && checkUp === 1) {
-        let userVoteName = document.createElement('li');        
-        userVoteName.innerText = profile.innerText;
-        userVoteList.appendChild(userVoteName);          
-    }
-    
-    // Allow the modal to exit when x is clicked or outside modal window 
-    window.addEventListener('click', function (event) {
-        if (event.target == userVoteModal || event.target == closeVoteModal) {
-            userVoteModal.remove();
-        }        
-    });        
-}
-
-// Generate a user's details if id is supplied or not
-function getUserInfo(apiUrl, id) {
-    
-    // If id is supplied, return user's details
-    if (id) {
-        let options = {
-            headers: {
-                "Content-Type": "application/json",
-                "Authorization": "Token " + localStorage.getItem("token"),
-                "id": id     
-            },
-            method: "GET"
-        }
-        return fetch(`${apiUrl}/user/?id=${id}`, options)
-            .then(res => res.json())
-            .then(json => {
-                return json;
-            });        
-    } 
-    // If id is not supplied return current user's details
-    else {
-        let options = {
-            headers: {
-                "Content-Type": "application/json",
-                "Authorization": "Token " + localStorage.getItem("token")    
-            },
-            method: "GET"
-        }    
-        return fetch(`${apiUrl}/user/`, options)
-            .then(res => res.json())
-            .then(json => {
-                return json;
-            });
-    }
-}
-
-// Upvote a post live function
-function upvotePost(myJson, apiUrl, upFunction) {
-
-    // Grab all current vote details
-    let voteNum = document.getElementById("voteNum" + myJson.id);
-    let liveNum = voteNum.innerText;
-    let upvote = document.getElementById("upVote" + myJson.id);
-    let downvote = document.getElementById("downVote" + myJson.id);
-    // Store downvote function to remove later
-    let downFunction = function() { 
-        downVotePost(myJson, apiUrl, downFunction) 
-    };           
-    let showVoteNum = document.getElementById('showVoteNum' + myJson.id);
-    let showDownVote = document.getElementById('showDownvote' + myJson.id);
-    let showUpvote = document.getElementById('showUpvote' + myJson.id);    
-    
-    // Send request to upvote a post
-    let options = {
-        headers: {
-            "Content-Type": "application/json",
-            "Authorization": "Token " + localStorage.getItem("token"),
-            "id": myJson.id          
-        },
-        method: "PUT"
-    }    
-    fetch(`${apiUrl}/post/vote?id=${myJson.id}`, options) 
-    .then(response => {
-        response.json().then(json => {   
-            // Live update the vote count and remove and readd event listeners
-            // to prevent double voting 
-            voteNum.innerText = parseInt(liveNum) + 1;
-            upvote.classList = 'frontDisUp';
-            downvote.classList = 'frontDownArrow';
-            upvote.removeEventListener('click', upFunction);
-            downvote.addEventListener('click', downFunction);
-            // Store vote information
-            upvote.setAttribute('checked', 1);
-            downvote.setAttribute('checked', 0);
-            // If user has voted on the inner post
-            if (showVoteNum) {
-                // Change vote number            
-                showVoteNum.innerText = parseInt(liveNum) + 1;
-                showUpvote.classList = 'showDisUp';
-                showDownVote.classList = 'downArrow';
-                // Shift vote event listeners
-                showUpvote.removeEventListener('click', upFunction);
-                showDownVote.removeEventListener('click', downFunction);
-                showDownVote.addEventListener('click', downFunction);
-            }                                              
-        })
-    })                    
-}
-
-// Upvote a post live function
-function downVotePost(myJson, apiUrl, downFunction) {
-    
-    // Grab all current vote details
-    let voteNum = document.getElementById("voteNum" + myJson.id);
-    let liveNum = voteNum.innerText;
-    let downvote = document.getElementById("downVote" + myJson.id);
-    let upvote = document.getElementById("upVote" + myJson.id);
-    // Store upvote function to remove later    
-    let upFunction = function() { 
-        upvotePost(myJson, apiUrl, upFunction) 
-    };      
-    let showVoteNum = document.getElementById('showVoteNum' + myJson.id);
-    let showDownVote = document.getElementById('showDownvote' + myJson.id);
-    let showUpvote = document.getElementById('showUpvote' + myJson.id);
-    
-    // Send request to downvote a post    
-    let options = {
-        headers: {
-            "Content-Type": "application/json",
-            "Authorization": "Token " + localStorage.getItem("token"),
-            "id": myJson.id          
-        },
-        method: "DELETE"
-    }    
-    fetch(`${apiUrl}/post/vote?id=${myJson.id}`, options)
-    .then(response => {
-        response.json().then(json => {    
-            // Live update the vote count and remove and readd event listeners
-            // to prevent double voting              
-            voteNum.innerText = parseInt(liveNum) - 1;
-            downvote.classList = 'frontDisDown';
-            upvote.classList = 'frontUpArrow';
-            // Remove event listener on downvote
-            downvote.removeEventListener('click', downFunction);
-            upvote.addEventListener('click', upFunction);
-            upvote.setAttribute('checked', 0); 
-            downvote.setAttribute('checked', 1);           
-            // If user has voted on the inner post
-            if (showVoteNum) {
-                // Change vote number  
-                showVoteNum.innerText = parseInt(liveNum) - 1;
-                showDownVote.classList = 'showDisDown';
-                showUpvote.classList = 'upArrow';
-                // Shift vote event listeners
-                showDownVote.removeEventListener('click', downFunction);
-                showUpvote.removeEventListener('click', upFunction); 
-                showUpvote.addEventListener('click', upFunction);
-            }                 
-        })
-    })        
 }
 
 
@@ -1939,6 +1672,183 @@ function submitPost(apiUrl, myJson) {
     }        
 }
 
+
+// Show search feed of a given search query
+function showSearchPosts(apiUrl) {
+
+    if (!localStorage.getItem("token")) {
+        return;
+    }
+
+    // Grab the search query from the search bar input
+    const searchTerm = document.getElementById('searchInput').value;
+    document.getElementById('feed').style.display = "none"; 
+    
+    // Create a search feed wrapper
+    const searchFeed = document.createElement('div');
+    searchFeed.classList = 'publicPost';
+    searchFeed.id = "searchFeed"; 
+    root.appendChild(searchFeed);
+        
+    // Create search button header    
+    const searchBack = document.createElement('div');
+    searchBack.classList = 'feed-header';
+    searchBack.id = 'searchBack';
+    searchFeed.appendChild(searchBack);
+    
+    // Create back button
+    const searchBackButton = document.createElement('button');
+    searchBackButton.classList = 'button backComment';
+    searchBackButton.innerText = "Back";
+    // When clicked, go back to previous session
+    searchBackButton.addEventListener('click', function () {
+        showHideFeed()
+    });
+    searchBack.appendChild(searchBackButton);
+        
+    // Create post wrapper
+    const foundPosts = document.createElement('div');
+    foundPosts.id = 'foundPosts';
+    searchFeed.appendChild(foundPosts);
+    
+    let subHeading = document.getElementById('subsedditHeading');
+    let sum = 0; 
+    // Gather all posts that contain the search query      
+    getUserInfo(apiUrl)
+    .then(json => {
+    for (let i = 0; i < json.following.length; i++) {
+        // Loop through each of the user's available posts
+        getUserInfo(apiUrl, json.following[i])
+        .then(myJson => {
+            for (let j = 0; j < myJson.posts.length; j++) {
+                // Loop through each post details
+                getPostInfo(apiUrl, myJson.posts[j])
+                .then(searchJson => {
+                    // If search word is found, increment sum and add post to feed
+                    if (searchJson.text.includes(searchTerm)) {
+                        createFeedPost(searchJson, apiUrl, 4)  
+                        sum++;
+                    }
+                    // If sum is equal to 1, word result should be singular
+                    if (sum === 1) {
+                        subHeading.innerText = "1 result for '" + searchTerm + "'";
+                    } 
+                    // If the sum is greater than 1, word result is plural
+                    else {
+                        subHeading.innerText = sum + " results for '" + searchTerm + "'";                        
+                    }             
+                });
+            }
+        })
+    }
+})
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// Determine and create subseddit feed
+function grabSubseddit(apiUrl, subseddit) {
+    // If user is not logged in return
+    if (!localStorage.getItem("token")) {
+        return;
+    }
+    
+    let found = 0;
+    let subHeading = document.getElementById('subsedditHeading');
+    let valueText = subHeading.innerText;    
+    // If subseddit header is empty, readd subseddit name
+    if (subHeading.innerText === "") {
+        valueText = subseddit;
+    }
+    
+    // Grab the user info of the user logged in
+    getUserInfo(apiUrl)
+    .then(json => {
+        // Loop through each following id;
+        for (let i = 0; i < json.following.length; i++) {
+            // Grab the user info of each followed person
+            getUserInfo(apiUrl, json.following[i])
+            .then(myJson => {
+                for (let j = 0; j < myJson.posts.length; j++) {
+                    // Grab the post info
+                    getPostInfo(apiUrl, myJson.posts[j])
+                    .then(searchJson => { 
+                        // If subseddit name matches subseddit post
+                        if (valueText === searchJson.meta.subseddit && found === 0) { 
+                            found = 1;
+                            // Initialise subseddit feed
+                            buildSubsedditPosts(apiUrl, valueText);
+                            createFeedPost(searchJson, apiUrl, 5);
+                        } 
+                        // If feed already initialised add subseddit post
+                        else if (valueText === searchJson.meta.subseddit) {
+                            createFeedPost(searchJson, apiUrl, 5)
+                        }
+                    });
+                }
+            })
+        }
+    })    
+}
+
+// Send and check a login status request
+function loginStatus (apiUrl) {
+
+    // Grab details from previous login input field
+    const username = document.getElementById('usernameInput').value;
+    const password = document.getElementById('passwordInput').value;    
+    const loginError = document.getElementById('loginError');
+
+    // Send request to the server to login with provided details
+    let options = {
+        method: "POST",
+        body: JSON.stringify({"username":username,"password":password}),
+        headers:{"Content-Type":"application/json"},
+    };
+    fetch(`${apiUrl}/auth/login`, options)
+    .then(response => {
+        response.json().then(json => {
+            // If server returns an error, display message in modal
+            if (response.status != 200) {
+                loginError.innerText = json.message;
+            } else {   
+                // Build logged in state of web page
+                localStorage.setItem("token", json.token)
+                clearBody('login');
+                createBanner(apiUrl)
+                createBasePage(apiUrl, 0);
+                profilePage(apiUrl); 
+            }        
+        })
+    })       
+}
+
 // Create login modal
 function createLogin (apiUrl) {
     
@@ -2015,181 +1925,78 @@ function createLogin (apiUrl) {
     });         
 }
 
-// Create sign up modal
-function createSignUp (apiUrl) {
+// Show upvotes modal
+function showUserVotes(myJson, apiUrl) {
+    
+    // Create modal to show user's that have upvoted a post
+    const userVoteModal = document.createElement('div');
+    userVoteModal.id = 'userVoteModal';
+    userVoteModal.classList = 'voteModal';
+    root.appendChild(userVoteModal);    
     
     // Create modal wrapper
-    const signUpModal = document.createElement('div');
-    signUpModal.id = 'signUpModal';
-    signUpModal.classList = 'modal';
-    root.appendChild(signUpModal);    
+    const userVoteWrapper = document.createElement('div');
+    userVoteWrapper.classList = 'voteModalContent';
+    userVoteModal.appendChild(userVoteWrapper);    
     
-    // Create form wrapper
-    const signupForm = document.createElement('div');
-    signupForm.classList = 'modal-content';
-    signUpModal.appendChild(signupForm);    
+    const userVoteBox = document.createElement('div');
+    userVoteBox.id = 'userVoteBox';
+    userVoteWrapper.appendChild(userVoteBox);
     
-    // Create signup wrapper
-    const signUpBox = document.createElement('div');
-    signUpBox.id = 'signUpBox';
-    signUpBox.classList = 'container';
-    signupForm.appendChild(signUpBox);
-    
-    // Create label for username
-    const createUsername = document.createElement('label');
-    createUsername.innerText = "Username";
-    signUpBox.appendChild(createUsername);
-    
-    // Create exit symbol
-    const closeSignUp = document.createElement('span');
-    closeSignUp.classList = 'close';
-    closeSignUp.innerText = "x";
-    signUpBox.appendChild(closeSignUp);    
+    // Modal heading
+    const userVoteLabel = document.createElement('label');
+    userVoteLabel.innerText = "Users that have upvoted this post:";
+    userVoteBox.appendChild(userVoteLabel);
         
-    // Create a username register input
-    const registerUser = document.createElement('input');
-    registerUser.id = 'registerUsername';
-    registerUser.placeholder = "Enter Username";
-    registerUser.setAttribute('type', 'text');
-    signUpBox.appendChild(registerUser);
-     
-    // Create a password label
-    const createPassword = document.createElement('label');
-    createPassword.innerText = "Password";
-    signUpBox.appendChild(createPassword);
+    // Modal x button
+    const closeVoteModal = document.createElement('span');
+    closeVoteModal.classList = 'VoteClose';
+    closeVoteModal.innerText = "x";
+    userVoteBox.appendChild(closeVoteModal);
     
-    // Create a register password input
-    const registerPass = document.createElement('input');
-    registerPass.id = 'registerPass1';    
-    registerPass.placeholder = "Enter Password";
-    registerPass.setAttribute('type', 'password');    
-    signUpBox.appendChild(registerPass);    
+    // Create a list of users
+    const userVoteList = document.createElement('ul');
+    userVoteList.classList = 'voteModalList';
+    userVoteBox.appendChild(userVoteList);
     
-    // Create a confirm passowrd input
-    const secondPass = document.createElement('input');
-    secondPass.id = 'registerPass2';    
-    secondPass.placeholder = "Confirm Password";
-    secondPass.setAttribute('type', 'password');    
-    signUpBox.appendChild(secondPass);      
-    
-    // Create an email label
-    const labelEmail = document.createElement('label');
-    labelEmail.innerText = "Email";
-    signUpBox.appendChild(labelEmail);    
-        
-    // Create a register email input
-    const registerEmail = document.createElement('input');
-    registerEmail.id = 'registerEmail';    
-    registerEmail.placeholder = "Enter Email";
-    registerEmail.setAttribute('type', 'text');    
-    signUpBox.appendChild(registerEmail); 
-    
-    // Create a name label
-    const labelName = document.createElement('label');
-    labelName.innerText = "Name";
-    signUpBox.appendChild(labelName);    
-
-    // Create a register name input
-    const registerName = document.createElement('input');
-    registerName.id = 'registerName';    
-    registerName.placeholder = "Enter Name";
-    registerName.setAttribute('type', 'text');    
-    signUpBox.appendChild(registerName);             
-    
-    // Create a signup button
-    const signUpButton = document.createElement('button');
-    signUpButton.innerText = "Sign Up";
-    signUpButton.classList = 'loginButton';
-    signUpButton.addEventListener('click', function () { 
-        // If clicked send request to signup to the server
-        signUpStatus(apiUrl); 
-    });
-    signUpBox.appendChild(signUpButton);
-       
-    // Create an invisible signup error text display for erros
-    const signUpError = document.createElement('div'); 
-    signUpError.id = 'signUpError';
-    signUpError.classList = 'loginError';
-    signUpBox.appendChild(signUpError);
-    
-    // If x or outside modal skeleton is clicked, hide modal    
-    window.addEventListener('click', function (event) {
-      if (event.target == signUpModal || event.target == closeSignUp) {
-        signUpModal.style.display = "none";
-        signUpError.innerText = "";
-      }        
-    });    
-}
-
-// Show search feed of a given search query
-function showSearchPosts(apiUrl) {
-
-    if (!localStorage.getItem("token")) {
-        return;
-    }
-
-    // Grab the search query from the search bar input
-    const searchTerm = document.getElementById('searchInput').value;
-    document.getElementById('feed').style.display = "none"; 
-    
-    // Create a search feed wrapper
-    const searchFeed = document.createElement('div');
-    searchFeed.classList = 'publicPost';
-    searchFeed.id = "searchFeed"; 
-    root.appendChild(searchFeed);
-        
-    // Create search button header    
-    const searchBack = document.createElement('div');
-    searchBack.classList = 'feed-header';
-    searchBack.id = 'searchBack';
-    searchFeed.appendChild(searchBack);
-    
-    // Create back button
-    const searchBackButton = document.createElement('button');
-    searchBackButton.classList = 'button backComment';
-    searchBackButton.innerText = "Back";
-    // When clicked, go back to previous session
-    searchBackButton.addEventListener('click', function () {
-        showHideFeed()
-    });
-    searchBack.appendChild(searchBackButton);
-        
-    // Create post wrapper
-    const foundPosts = document.createElement('div');
-    foundPosts.id = 'foundPosts';
-    searchFeed.appendChild(foundPosts);
-    
-    let subHeading = document.getElementById('subsedditHeading');
-    let sum = 0; 
-    // Gather all posts that contain the search query      
-    getUserInfo(apiUrl)
-    .then(json => {
-    for (let i = 0; i < json.following.length; i++) {
-        // Loop through each of the user's available posts
-        getUserInfo(apiUrl, json.following[i])
-        .then(myJson => {
-            for (let j = 0; j < myJson.posts.length; j++) {
-                // Loop through each post details
-                getPostInfo(apiUrl, myJson.posts[j])
-                .then(searchJson => {
-                    // If search word is found, increment sum and add post to feed
-                    if (searchJson.text.includes(searchTerm)) {
-                        createFeedPost(searchJson, apiUrl, 4)  
-                        sum++;
-                    }
-                    // If sum is equal to 1, word result should be singular
-                    if (sum === 1) {
-                        subHeading.innerText = "1 result for '" + searchTerm + "'";
-                    } 
-                    // If the sum is greater than 1, word result is plural
-                    else {
-                        subHeading.innerText = sum + " results for '" + searchTerm + "'";                        
-                    }             
-                });
+    // Check if the user has downvoted this post
+    let checkDown = document.getElementById('downVote' + myJson.id);
+    checkDown = parseInt(checkDown.attributes.checked.value);
+    let profile = document.getElementById('profileName');
+    let num = parseInt(profile.attributes.check.value)
+    let found = 0;
+    for (let i = 0; i < myJson.meta.upvotes.length; i++) { 
+        // If the upvote user id matches the user's id
+        if (myJson.meta.upvotes[i] === parseInt(num)) {
+            found = 1;
+        }
+        let checkUser = getUserInfo(apiUrl, myJson.meta.upvotes[i]);
+        checkUser.then(json => {
+            // If the upvote has already downvoted this post (live)
+            if (checkDown === 1 && json.id === parseInt(num)) {
+                return;
+            } else {
+                let userVoteName = document.createElement('li');        
+                userVoteName.innerText = json.username;
+                userVoteList.appendChild(userVoteName);            
             }
-        })
+        });
     }
-})
+    
+    // Check if the user has upvoted this post
+    let checkUp = document.getElementById('upVote' + myJson.id);
+    checkUp = parseInt(checkUp.attributes.checked.value);
+    if (found === 0 && checkUp === 1) {
+        let userVoteName = document.createElement('li');        
+        userVoteName.innerText = profile.innerText;
+        userVoteList.appendChild(userVoteName);          
+    }
+    
+    // Allow the modal to exit when x is clicked or outside modal window 
+    window.addEventListener('click', function (event) {
+        if (event.target == userVoteModal || event.target == closeVoteModal) {
+            userVoteModal.remove();
+        }        
+    });        
 }
-
 export default initApp;

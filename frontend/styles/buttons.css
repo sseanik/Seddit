@@ -1,0 +1,127 @@
+
+.button {
+  border: 1px solid #2271a9;
+  border-radius: 4px;
+  padding: 7.5px 15px;
+  font-weight: bold;
+  box-shadow: 1px 1px 1px #43136c; 
+  cursor: pointer;   
+}
+
+.button-secondary:hover {
+  background: linear-gradient(#6928a0, #276795);
+  outline: none;  
+  color: #ffffff;  
+}
+
+.button-primary:hover {
+  background: linear-gradient(#f6f6f6, #e8eff2);
+  outline: none;  
+  color: #1992ed;
+}
+
+.button-primary {
+  background: linear-gradient(#eeeeee, #d9d9d9);
+  color: var(--reddit-blue);
+}
+
+.button-secondary {
+  background: linear-gradient(#5e258e, #215981);
+  color: #e6e6e6;
+  float: right;
+}
+
+.backComment {
+  background: linear-gradient(#eeeeee, #d9d9d9);
+}
+
+.backComment:hover {
+  background: linear-gradient(#f2e6f9, #e4f3f9);
+}
+
+.buttonThree {
+  background-color: transparent;
+  color: white;
+  border: 1px solid #1e72ae;
+  border-radius: 4px;
+  padding: 7.5px 15px;
+  font-weight: bold;
+  cursor: pointer; 
+  box-shadow: 1px 1px 0px #5e268f; 
+}
+
+.buttonThree:hover {
+  border: 1px solid #2f8fd3;  
+}
+
+.buttonFour {
+  color: white;
+  background-color: #2271a9;
+  border: 1px solid #2271a9;
+  border-radius: 4px;
+  text-transform: uppercase;
+  padding: 7.5px 15px;
+  font-weight: bold;
+  box-shadow: 2px 2px 2px #43136c; 
+  cursor: pointer;   
+}
+
+.submitButton {
+  background: white;
+  width: 100%;
+  margin-top: 10px;
+  border: 1px solid #2271a9;
+  border-radius: 4px;
+  padding: 7.5px 15px;
+  font-weight: bold;
+  cursor: pointer;   
+}
+
+.searchButton {
+  background: linear-gradient(#eeeeee, #d9d9d9);
+  font-size: 15px;
+  border: 1px solid #2271a9;
+  border-radius: 4px;
+  padding: 7.5px 15px;
+  font-weight: bold;
+  box-shadow: 2px 2px 2px #43136c;
+  cursor: pointer;
+}
+
+.searchButton:hover {
+  background: linear-gradient(#efefef, #e7e7e7);
+}
+
+.leftButton {
+  border: 1px solid #32448c;
+  border-radius: 4px;
+  padding: 7.5px 15px;
+  font-weight: bold;
+  cursor: pointer;   
+  margin-left: 9px;  
+  background: linear-gradient(#f6f6f6, #e4e4e4);
+}
+
+.rightButton {
+  border: 1px solid #32448c;
+  border-radius: 4px;
+  padding: 7.5px 15px;
+  font-weight: bold;
+  cursor: pointer;   
+  margin-left: 9px;  
+  background: linear-gradient(#f6f6f6, #e4e4e4);
+}
+
+.leftButton:hover, .rightButton:hover {
+  background: linear-gradient(#eedaf9, #daf0f9);
+}
+
+.inputBox {
+  background-color: var(--reddit-bg-color);
+  font: inherit;
+  font-size: var(--body-text-size);
+  padding: 7.5px 15px;
+  border: 1px solid var(--reddit-grey);
+  border-radius: 4px;
+  margin-right: 4px;
+}

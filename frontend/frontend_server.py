@@ -13,18 +13,11 @@ import base64, os, string, sys
 PASSWORD_FILE = 'password.txt'
 
 def main(port=None):
-    passwd = None
+    passwd = '123'
 
     # if you want a hardcoded password leave it in this file
 
-    try:
-        with open(PASSWORD_FILE) as f:
-            passwd = f.readline().strip()
-    except OSError:
-        pass
 
-    if passwd is None:
-        passwd = gen_passwd()
 
     k = bytes(f"user:{passwd}",'utf-8')
     AuthenticationHandler.key = base64.b64encode(k).decode('utf-8')
@@ -100,7 +93,8 @@ def create_backend_url_js(url):
         print("are you running frontend_server.py in the frontend directory?", file=sys.stderr)
         sys.exit(1)
 
-if __name__ == '__main__':
+#if __name__ == "__main__":
+def start():
     if not os.path.exists('index.html'):
         print("are you running frontend_server.py in the frontend directory?", file=sys.stderr)
         sys.exit(1)

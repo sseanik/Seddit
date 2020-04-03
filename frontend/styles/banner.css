@@ -1,0 +1,84 @@
+.navHeader {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content: space-between;
+  align-items: center;  
+  background: linear-gradient(70deg, #2271a9, #43136c);
+  border-bottom: 3px solid #cbcbcb;  
+  height: 70px;    
+}
+
+.navHeader > *,
+footer > * {
+  margin: 10px 25px;
+}
+
+.siteHeading {   
+  width: 80px;
+  border-right: 4px solid #2598cc;     
+  font-family: arial;
+  font-weight: bold;
+  font-size: 23px;  
+  color: #f0f0f0; 
+  text-shadow: 2px 2px #2271a9;
+  cursor: pointer;
+}
+
+.siteHeading:hover {
+  color: white;
+  border-right: 4px solid #2db5f2;   
+}
+
+.subsedditHeading {
+  position: absolute;
+  left: 95px;
+  font-family: arial;
+  font-weight: bold;
+  font-size: 20px;  
+  color: #ffffff; 
+  text-shadow: 2px 2px #2271a9;
+  cursor: pointer;      
+}
+
+.pagination {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+}
+
+
+.followingList {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.followListItem {
+  margin: 0;
+  padding: 4px;
+  font-size: 14px;
+  color: var(--reddit-blue);    
+}
+
+.editDelete {
+  flex-grow : 1;
+  cursor: pointer;
+  text-align: right;  
+}
+
+
+.sideBar {
+  background: linear-gradient(70deg, #f3f3f3, #ffffff);
+  border: 1px solid #dedede;
+  font-weight: bold;
+  cursor: pointer;  
+  height: 100%;
+  width: 100px;    
+}
+
+.sideBar:hover {
+  background: linear-gradient(70deg, #ffffff, #f3f3f3);
+}
+
+
