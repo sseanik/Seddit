@@ -6,6 +6,8 @@
 
 import os, sys, sqlite3
 
+
+
 DATABASE_URL = 'https://cgi.cse.unsw.edu.au/~cs2041/19T2/seddit.sqlite3'
 
 def main(host='127.0.0.1', port=None):
@@ -54,7 +56,7 @@ def create_database():
     if not os.path.exists(database_file):
         print(' * [DATABASE WIZARD] No db file was detected, Creating', database_file)
         import ssl, urllib.request
-        with urllib.request.urlopen(DATABASE_URL, context = ssl.SSLContext(ssl.PROTOCOL_TLSv1)) as response:
+        with urllib.request.urlopen(DATABASE_URL) as response:
             db = response.read()
         with open(database_file, "wb") as f:
             f.write(db)
@@ -87,7 +89,8 @@ def usage():
     print('or:', sys.argv[0], '[port]')
     print('or:', sys.argv[0])
 
-if __name__ == "__main__":
+#if __name__ == "__main__":
+def start():
     try:
         if len(sys.argv) == 3:
             main(host=sys.argv[1], port=int(sys.argv[2]))
@@ -99,3 +102,5 @@ if __name__ == "__main__":
             usage()
     except ValueError:
         usage()
+
+    
