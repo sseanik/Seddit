@@ -1,11 +1,10 @@
-
 .post {
   display: flex;
   overflow: hidden;
   margin: 18px 0;
   background-color: white;
   box-shadow: 1px 1px 2px #888888;
-  border-right: 10px solid #21649b; 
+  border-right: 10px solid #21649b;
   max-height: 90px;
 }
 
@@ -14,7 +13,7 @@
   overflow: hidden;
   background-color: white;
   box-shadow: 2px 2px 2px #888888;
-  border-right: 10px solid #594697;   
+  border-right: 10px solid #594697;
 }
 
 .post .vote {
@@ -26,8 +25,8 @@
   display: flex;
   justify-content: center;
   align-content: center;
-  flex-direction: column; 
-  color: #707070; 
+  flex-direction: column;
+  color: #707070;
   cursor: pointer;
 }
 .post .content {
@@ -65,7 +64,7 @@
 .comment {
   background-color: white;
   box-shadow: 1px 1px 2px #888888;
-  border-right: 10px solid #21649b; 
+  border-right: 10px solid #21649b;
 }
 
 .comment:hover {
@@ -73,13 +72,13 @@
 }
 
 :root {
-  --reddit-blue: #0079D3;
-  --reddit-orange: #FF5700;
+  --reddit-blue: #0079d3;
+  --reddit-orange: #ff5700;
   --reddit-grey: rgba(0, 0, 0, 0.0975);
-  --reddit-light-grey:  rgba(0, 0, 0, 0.041);
+  --reddit-light-grey: rgba(0, 0, 0, 0.041);
   --reddit-bg-color: #f1f1f7;
   --body-text-size: 12px;
-  --alt-text-color:  rgba(0, 0, 0, 0.65);
+  --alt-text-color: rgba(0, 0, 0, 0.65);
 }
 
 .feed-header {
@@ -90,55 +89,55 @@
 .feed-title {
   font-weight: normal;
   margin: 0;
-  color: var(--alt-text-color);  
+  color: var(--alt-text-color);
 }
 
 .upArrow {
-  width: 0; 
-  height: 0; 
+  width: 0;
+  height: 0;
   border-left: 12px solid transparent;
-  border-right: 12px solid transparent;  
+  border-right: 12px solid transparent;
   border-bottom: 12px solid #236da6;
   display: flex;
   margin-left: auto;
-  margin-right: auto; 
-  cursor: pointer;   
+  margin-right: auto;
+  cursor: pointer;
 }
 
 .downArrow {
-  width: 0; 
-  height: 0; 
+  width: 0;
+  height: 0;
   border-left: 12px solid transparent;
-  border-right: 12px solid transparent;  
+  border-right: 12px solid transparent;
   border-top: 12px solid #42156d;
   display: flex;
   margin-left: auto;
-  margin-right: auto; 
-  cursor: pointer;     
+  margin-right: auto;
+  cursor: pointer;
 }
 
 .frontUpArrow {
-  width: 0; 
-  height: 0; 
+  width: 0;
+  height: 0;
   border-left: 10px solid transparent;
-  border-right: 10px solid transparent;  
+  border-right: 10px solid transparent;
   border-bottom: 10px solid #236da6;
   display: flex;
   margin-left: auto;
-  margin-right: auto;  
-  cursor: pointer;  
+  margin-right: auto;
+  cursor: pointer;
 }
 
 .frontDownArrow {
-  width: 0; 
-  height: 0; 
+  width: 0;
+  height: 0;
   border-left: 10px solid transparent;
-  border-right: 10px solid transparent;  
+  border-right: 10px solid transparent;
   border-top: 10px solid #42156d;
   display: flex;
   margin-left: auto;
-  margin-right: auto; 
-  cursor: pointer;   
+  margin-right: auto;
+  cursor: pointer;
 }
 
 .postCommentBox {
@@ -146,19 +145,19 @@
   display: flex;
   flex-direction: row;
   flex-wrap: nowrap;
-  align-items: center;   
-}  
+  align-items: center;
+}
 
 .submitPost {
   margin-top: 20px;
   margin-left: 10px;
   background-color: #fcfcfc;
   padding: 20px;
-  box-shadow: 2px 2px 2px #888888;  
+  box-shadow: 2px 2px 2px #888888;
   border: 7px solid;
   border-image-source: linear-gradient(45deg, #236ea7, #42166e);
   border-image-slice: 1;
-}  
+}
 
 .submitPostBox {
   background: white;
@@ -180,58 +179,57 @@
   border: 1px solid #ccc;
   background-color: white;
   resize: vertical;
-  font-family: -apple-system, 'Open Sans', 'Helvetica Neue', sans-serif; 
-  font-size: 14px;     
+  font-family: -apple-system, "Open Sans", "Helvetica Neue", sans-serif;
+  font-size: 14px;
   margin-top: 10px;
-  
 }
 
 .frontDisUp {
-  width: 0; 
-  height: 0; 
+  width: 0;
+  height: 0;
   border-left: 10px solid transparent;
-  border-right: 10px solid transparent;  
+  border-right: 10px solid transparent;
   border-bottom: 10px solid #ff671d;
   display: flex;
   margin-left: auto;
-  margin-right: auto;  
-  cursor: pointer;  
+  margin-right: auto;
+  cursor: pointer;
 }
 
 .frontDisDown {
-  width: 0; 
-  height: 0; 
+  width: 0;
+  height: 0;
   border-left: 10px solid transparent;
-  border-right: 10px solid transparent;  
+  border-right: 10px solid transparent;
   border-top: 10px solid #ff671d;
   display: flex;
   margin-left: auto;
-  margin-right: auto; 
-  cursor: pointer;   
+  margin-right: auto;
+  cursor: pointer;
 }
 
 .showDisUp {
-  width: 0; 
-  height: 0; 
+  width: 0;
+  height: 0;
   border-left: 12px solid transparent;
-  border-right: 12px solid transparent;  
+  border-right: 12px solid transparent;
   border-bottom: 12px solid #ff671d;
   display: flex;
   margin-left: auto;
-  margin-right: auto; 
-  cursor: pointer;   
+  margin-right: auto;
+  cursor: pointer;
 }
 
 .showDisDown {
-  width: 0; 
-  height: 0; 
+  width: 0;
+  height: 0;
   border-left: 12px solid transparent;
-  border-right: 12px solid transparent;  
+  border-right: 12px solid transparent;
   border-top: 12px solid #ff671d;
   display: flex;
   margin-left: auto;
-  margin-right: auto; 
-  cursor: pointer;     
+  margin-right: auto;
+  cursor: pointer;
 }
 
 .commentAuthor {
@@ -240,7 +238,7 @@
 }
 
 .feedDate {
-position: relative;
+  position: relative;
   left: 5px;
   bottom: 5px;
   margin-left: 5px;
@@ -265,8 +263,8 @@ position: relative;
   max-height: 90px;
   max-width: 90px;
   margin-left: auto;
-  margin-right: auto;    
-  overflow: hidden
+  margin-right: auto;
+  overflow: hidden;
 }
 
 .postImage {
@@ -275,26 +273,24 @@ position: relative;
   width: 100%;
   max-width: 500px;
   margin-left: auto;
-  margin-right: auto;  
-
+  margin-right: auto;
 }
 
 .createThumb {
   height: 90px;
   width: 90px;
-  background: linear-gradient(70deg, #2f78b1, #174885, #4b2c9b);   
+  background: linear-gradient(70deg, #2f78b1, #174885, #4b2c9b);
   font-family: arial;
   font-weight: bold;
   font-size: 15px;
-  color: #ffffff; 
+  color: #ffffff;
   text-shadow: 1px 1px #1a5686;
-  cursor: pointer;   
+  cursor: pointer;
   line-height: 90px;
   text-align: center;
-  
 }
 
 .createThumb:hover {
-  background: linear-gradient(70deg, #174885, #4b2c9b, #2f78b1); 
-  cursor: pointer;   
+  background: linear-gradient(70deg, #174885, #4b2c9b, #2f78b1);
+  cursor: pointer;
 }

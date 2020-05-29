@@ -1,22 +1,21 @@
-
 .button {
   border: 1px solid #2271a9;
   border-radius: 4px;
   padding: 7.5px 15px;
   font-weight: bold;
-  box-shadow: 1px 1px 1px #43136c; 
-  cursor: pointer;   
+  box-shadow: 1px 1px 1px #43136c;
+  cursor: pointer;
 }
 
 .button-secondary:hover {
   background: linear-gradient(#6928a0, #276795);
-  outline: none;  
-  color: #ffffff;  
+  outline: none;
+  color: #ffffff;
 }
 
 .button-primary:hover {
   background: linear-gradient(#f6f6f6, #e8eff2);
-  outline: none;  
+  outline: none;
   color: #1992ed;
 }
 
@@ -46,12 +45,12 @@
   border-radius: 4px;
   padding: 7.5px 15px;
   font-weight: bold;
-  cursor: pointer; 
-  box-shadow: 1px 1px 0px #5e268f; 
+  cursor: pointer;
+  box-shadow: 1px 1px 0px #5e268f;
 }
 
 .buttonThree:hover {
-  border: 1px solid #2f8fd3;  
+  border: 1px solid #2f8fd3;
 }
 
 .buttonFour {
@@ -62,8 +61,8 @@
   text-transform: uppercase;
   padding: 7.5px 15px;
   font-weight: bold;
-  box-shadow: 2px 2px 2px #43136c; 
-  cursor: pointer;   
+  box-shadow: 2px 2px 2px #43136c;
+  cursor: pointer;
 }
 
 .submitButton {
@@ -74,15 +73,17 @@
   border-radius: 4px;
   padding: 7.5px 15px;
   font-weight: bold;
-  cursor: pointer;   
+  cursor: pointer;
 }
 
 .searchButton {
   background: linear-gradient(#eeeeee, #d9d9d9);
-  font-size: 15px;
+  font-size: 20px;
   border: 1px solid #2271a9;
   border-radius: 4px;
-  padding: 7.5px 15px;
+  height: 36px;
+  width: 30px;
+  padding-bottom: 5px;
   font-weight: bold;
   box-shadow: 2px 2px 2px #43136c;
   cursor: pointer;
@@ -97,8 +98,8 @@
   border-radius: 4px;
   padding: 7.5px 15px;
   font-weight: bold;
-  cursor: pointer;   
-  margin-left: 9px;  
+  cursor: pointer;
+  margin-left: 9px;
   background: linear-gradient(#f6f6f6, #e4e4e4);
 }
 
@@ -107,12 +108,13 @@
   border-radius: 4px;
   padding: 7.5px 15px;
   font-weight: bold;
-  cursor: pointer;   
-  margin-left: 9px;  
+  cursor: pointer;
+  margin-left: 9px;
   background: linear-gradient(#f6f6f6, #e4e4e4);
 }
 
-.leftButton:hover, .rightButton:hover {
+.leftButton:hover,
+.rightButton:hover {
   background: linear-gradient(#eedaf9, #daf0f9);
 }
 

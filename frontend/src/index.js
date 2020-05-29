@@ -1,16 +1,22 @@
 /**
- * Written by A. Hinds with Z. Afzal 2018 for UNSW CSE.
- *
+ * Frontend Skeleton written by A. Hinds with Z. Afzal 2018 for UNSW CSE.
  * Updated 2019.
+ *
+ * Frontend functionality written by Sean Smith for a COMP2041 Project
+ * Updated 2020.
  */
 
-// import your app here
-import initApp from './main.js';
+import { createBanner, createBasePage } from "./Feed/base.js";
+import { createLogin } from "./Auth/login.js";
+import { createSignUp } from "./Auth/signup.js";
+import { profilePage } from "./User/profile.js";
 
-//const API_URL = 'http://127.0.0.1:5008/';
+const API_URL = "http://0.0.0.0:5001";
 
-// comment above line and uncomment below line when when you start using the back-end server
-import API_URL from './backend_url.js';
+const root = document.getElementById("root");
 
-// and run it
-initApp(API_URL);
+createBanner(API_URL);
+createBasePage(API_URL, 0);
+createLogin(API_URL);
+createSignUp(API_URL);
+profilePage(API_URL);
