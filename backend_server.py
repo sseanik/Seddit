@@ -6,11 +6,9 @@
 
 import os, sys, sqlite3
 
-
-
 DATABASE_URL = 'https://cgi.cse.unsw.edu.au/~cs2041/19T2/seddit.sqlite3'
 
-def main(host='127.0.0.1', port=None):
+def main(host='0.0.0.0', port=5001):
     try:
         create_database()
         check_database()
@@ -89,8 +87,7 @@ def usage():
     print('or:', sys.argv[0], '[port]')
     print('or:', sys.argv[0])
 
-#if __name__ == "__main__":
-def start():
+if __name__ == "__main__":
     try:
         if len(sys.argv) == 3:
             main(host=sys.argv[1], port=int(sys.argv[2]))
@@ -102,5 +99,3 @@ def start():
             usage()
     except ValueError:
         usage()
-
-    
