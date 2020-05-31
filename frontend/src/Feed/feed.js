@@ -1,6 +1,6 @@
 import { createBasePage } from "./base.js";
 import { grabSubseddit } from "./subseddit.js";
-import { toggleFeed } from "./reset.js";
+import { toggleFeed, toggleLoader } from "./reset.js";
 import { upvotePost, downVotePost, showUserVotes } from "../Post/vote.js";
 import { removePost, createPost, showPost } from "../Post/post.js";
 import { showUserPage } from "../User/profile.js";
@@ -17,6 +17,7 @@ export function addFeedPosts(num, apiUrl) {
     },
     method: "GET",
   };
+  toggleLoader(true);
   fetch(`${apiUrl}/user/feed?p=${num}&n=6`, options)
     .then((res) => res.json())
     .then((myJson) => {
@@ -33,6 +34,7 @@ export function addFeedPosts(num, apiUrl) {
         // Create and display the new post
         createFeedPost(myJson.posts[i], apiUrl, 1);
       }
+      toggleLoader(false);
     });
 }
 
@@ -304,6 +306,7 @@ export function changePage(apiUrl, num) {
     },
     method: "GET",
   };
+  toggleLoader(true);
   fetch(`${apiUrl}/user/feed?p=${page}&n=6`, options)
     .then((res) => res.json())
     .then((myJson) => {
@@ -317,5 +320,6 @@ export function changePage(apiUrl, num) {
         createBasePage(apiUrl, page);
         pageNum.innerText = parseInt(pageNum.innerText) - 1;
       }
+      toggleLoader(false);
     });
 }

@@ -1,0 +1,26 @@
+version: '3.7'
+
+services:
+    seddit_backend:
+        stdin_open: true
+        build: ./backend
+        container_name: seddit_backend
+        restart: always
+        expose:
+         - 5001
+        ports:
+         - 5001:5001
+        volumes:
+         - ./backend:/usr/src/seddit 
+
+    seddit_frontend:
+        stdin_open: true
+        build: ./frontend
+        expose:
+         - 3001
+        ports:
+         - 3001:3001
+        volumes:
+         - ./frontend:/usr/src/seddit/frontend
+        links:
+        - "seddit_backend:seddit_backend"

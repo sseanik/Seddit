@@ -258,6 +258,7 @@ export function profilePage(apiUrl, username) {
     },
     method: "GET",
   };
+
   fetch(`${apiUrl}/user/`, options)
     .then((res) => res.json())
     .then((json) => {

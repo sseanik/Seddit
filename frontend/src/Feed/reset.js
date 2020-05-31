@@ -25,6 +25,9 @@ export function resetFeed(check) {
   if (document.getElementById("subsedditFeed")) {
     document.getElementById("subsedditFeed").remove();
   }
+  if (document.getElementById("loader")) {
+    document.getElementById("loader").remove();
+  }
 }
 
 // Show and hide certain elements of the feed
@@ -64,8 +67,13 @@ export function toggleFeed(num) {
   if (num != 4) {
     document.getElementById("subsedditHeading").innerText = "";
   }
-  if (document.getElementById("subsedditFeed")) {
-    document.getElementById("subsedditFeed").remove();
+}
+
+export function toggleLoader(flag) {
+  if (flag === true && document.getElementById("loader")) {
+    document.getElementById("loader").style.display = "";
+  } else if (document.getElementById("loader")) {
+    document.getElementById("loader").style.display = "none";
   }
 }
 

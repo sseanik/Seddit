@@ -7,6 +7,11 @@ from util.DB_Interface import DB
 app = Flask(__name__)
 CORS(app)
 
+@app.route('/', defaults={'path': ''})
+@app.route('/<path:path>')
+def serve(path):
+    return "HELLO"
+
 @app.route('/soft-reset', strict_slashes=False)
 def reset():
     db.raw("DELETE FROM USERS WHERE USERNAME LIKE \"TESTERELLA%\"")

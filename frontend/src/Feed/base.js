@@ -2,7 +2,7 @@ import { createLogin } from "../Auth/login.js";
 import { addFeedPosts, changePage, createFeedPost } from "./feed.js";
 import { grabSubseddit } from "./subseddit.js";
 import { showSearchPosts } from "./search.js";
-import { resetFeed, toggleFeed } from "./reset.js";
+import { resetFeed, toggleFeed, toggleLoader } from "./reset.js";
 import { createPost } from "../Post/post.js";
 
 // Create Banner at the top
@@ -24,6 +24,11 @@ export function createBanner(apiUrl) {
     createBasePage(apiUrl, 0);
   });
   navHeader.appendChild(siteHeading);
+
+  const loader = document.createElement("div");
+  loader.id = "loader";
+  loader.classList = "loader";
+  navHeader.appendChild(loader);
 
   // Create subseddit (hidden) heading next to logo
   const subsedditHeading = document.createElement("p");
@@ -167,6 +172,8 @@ export function createBanner(apiUrl) {
 
 // Create base feed page
 export function createBasePage(apiUrl, num) {
+  toggleLoader(true);
+
   // Create feed skeleton
   const mainFeed = document.createElement("main");
   mainFeed.id = "mainFeed";
@@ -224,6 +231,7 @@ export function createBasePage(apiUrl, num) {
         for (let i = 0; i < myJson.posts.length; i++) {
           createFeedPost(myJson.posts[i], apiUrl, 0);
         }
+        toggleLoader(false);
       });
   }
   // If the user is logged in, add their own feed

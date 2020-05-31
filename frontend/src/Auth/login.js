@@ -1,5 +1,5 @@
 import { createBasePage, createBanner } from "../Feed/base.js";
-import { resetFeed } from "../Feed/reset.js";
+import { resetFeed, toggleLoader } from "../Feed/reset.js";
 import { profilePage } from "../User/profile.js";
 
 export function buildLoggedIn(arg, apiUrl) {
@@ -109,6 +109,7 @@ export function loginStatus(apiUrl) {
       } else {
         // Build logged in state of web page
         localStorage.setItem("token", json.token);
+        toggleLoader(true);
         resetFeed("login");
         createBanner(apiUrl);
         createBasePage(apiUrl, 0);

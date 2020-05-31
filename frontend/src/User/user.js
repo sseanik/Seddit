@@ -1,5 +1,3 @@
-//import { resetFeed, toggleFeed } from './remove.js'
-
 // Generate a user's details if id is supplied or not
 export function getUserInfo(apiUrl, id) {
   // If id is supplied, return user's details
@@ -12,6 +10,7 @@ export function getUserInfo(apiUrl, id) {
       },
       method: "GET",
     };
+
     return fetch(`${apiUrl}/user/?id=${id}`, options)
       .then((res) => res.json())
       .then((json) => {
@@ -27,6 +26,7 @@ export function getUserInfo(apiUrl, id) {
       },
       method: "GET",
     };
+
     return fetch(`${apiUrl}/user/`, options)
       .then((res) => res.json())
       .then((json) => {
@@ -73,6 +73,7 @@ export function updateStatus(apiUrl) {
       Authorization: "Token " + localStorage.getItem("token"),
     },
   };
+
   fetch(`${apiUrl}/user`, options).then((response) => {
     response.json().then((json) => {
       // Live update details in profile
