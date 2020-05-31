@@ -1,4 +1,4 @@
-# LIVE DEMO: http://seddit.seanik.codes)   
+# Live Demo: http://seddit.seanik.codes
 
 
 ## Seddit - Introduction
