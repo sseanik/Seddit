@@ -1,6 +1,6 @@
-<!--
-    DO NOT CHANGE THIS FILE - IT MAY BE UPDATED DURING THE ASSIGNMENT
--->
+# LIVE DEMO: http://seddit.seanik.codes)   
+
+
 ## Seddit - Introduction
 
 JavaScript is used increasingly to provide a native-like application experience in the web. One
