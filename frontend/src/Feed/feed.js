@@ -50,7 +50,7 @@ export function createFeedPost(myJson, apiUrl, check) {
     feed.appendChild(feedPost);
   }
   // If the feed is another user's profile
-  else if (check === 2) {
+  else if (check === 2 && document.getElementById("otherProfile")) {
     document.getElementById("otherProfile").appendChild(feedPost);
   }
   // If the feed is the current user's profile
@@ -209,6 +209,7 @@ export function createFeedPost(myJson, apiUrl, check) {
     if (!localStorage.getItem("token")) {
       return;
     }
+    toggleLoader(true);
     toggleFeed(5);
     showUserPage(apiUrl, myJson.meta.author);
   });
@@ -229,6 +230,7 @@ export function createFeedPost(myJson, apiUrl, check) {
     if (!localStorage.getItem("token")) {
       return;
     }
+    toggleLoader(true);
     grabSubseddit(apiUrl, myJson.meta.subseddit);
   });
   detailBox.appendChild(subseddit);

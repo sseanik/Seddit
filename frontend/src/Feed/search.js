@@ -1,4 +1,4 @@
-import { toggleFeed } from "./reset.js";
+import { toggleFeed, toggleLoader } from "./reset.js";
 import { getUserInfo } from "../User/user.js";
 import { createFeedPost } from "./feed.js";
 import { getPostInfo } from "../Post/post.js";
@@ -67,5 +67,6 @@ export function showSearchPosts(apiUrl) {
         }
       });
     }
+  toggleLoader(false);
   });
 }

@@ -11,7 +11,7 @@ import { createLogin } from "./Auth/login.js";
 import { createSignUp } from "./Auth/signup.js";
 import { profilePage } from "./User/profile.js";
 
-const API_URL = "http://0.0.0.0:5001";
+const API_URL = "http://104.248.151.163:5001";
 
 const root = document.getElementById("root");
 

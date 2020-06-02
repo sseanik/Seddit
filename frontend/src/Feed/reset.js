@@ -2,6 +2,10 @@
 export function resetFeed(check) {
   const main = document.getElementById("mainFeed");
   main.parentNode.removeChild(main);
+  if (document.getElementById("subsedditFeed")) {
+    document.getElementById("subsedditFeed").remove()
+  }
+
   if (document.getElementById("pagination")) {
     document.getElementById("pagination").remove();
   }
@@ -66,6 +70,9 @@ export function toggleFeed(num) {
   }
   if (num != 4) {
     document.getElementById("subsedditHeading").innerText = "";
+  }
+  if (document.getElementById("subsedditFeed")) {
+    document.getElementById("subsedditFeed").remove()
   }
 }
 

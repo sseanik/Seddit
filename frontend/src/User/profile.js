@@ -2,7 +2,7 @@ import { updateStatus, getUserInfo } from "./user.js";
 import { createFollowers, unfollowUser } from "./follow.js";
 import { createFeedPost } from "../Feed/feed.js";
 import { getPostInfo } from "../Post/post.js";
-import { toggleFeed } from "../Feed/reset.js";
+import { toggleFeed, toggleLoader } from "../Feed/reset.js";
 
 // Display upvote profile modal
 export function updateProfile(apiUrl, json) {
@@ -240,6 +240,7 @@ export function showUserPage(apiUrl, username) {
             createFeedPost(myJson, apiUrl, 2);
           });
         }
+        toggleLoader(false);
       });
     });
 }

@@ -1,4 +1,4 @@
-import { toggleFeed } from "./reset.js";
+import { toggleFeed, toggleLoader } from "./reset.js";
 import { createPost, getPostInfo } from "../Post/post.js";
 import { getUserInfo } from "../User/user.js";
 import { createFeedPost } from "./feed.js";
@@ -75,9 +75,11 @@ export function grabSubseddit(apiUrl, subseddit) {
             else if (valueText === searchJson.meta.subseddit) {
               createFeedPost(searchJson, apiUrl, 5);
             }
+        
           });
         }
       });
     }
+    toggleLoader(false);
   });
 }

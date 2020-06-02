@@ -39,6 +39,7 @@ footer > * {
   color: #ffffff;
   text-shadow: 2px 2px #2271a9;
   cursor: pointer;
+  top: 15px;
 }
 
 .pagination {

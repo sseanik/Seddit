@@ -73,6 +73,7 @@ export function createBanner(apiUrl) {
       return;
     }
     toggleFeed(5);
+    toggleLoader(true);
     showSearchPosts(apiUrl);
   });
   searchBox.appendChild(searchButton);

@@ -105,6 +105,7 @@ export function showPost(myJson, apiUrl) {
     postDiv.appendChild(postImage);
     // Display image
     const image = document.createElement("img");
+    image.classList = "postImage";
     image.src = "data:image/jpeg;base64," + myJson.image;
     postImage.appendChild(image);
   }
