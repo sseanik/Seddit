@@ -1,6 +1,11 @@
 # Live Demo: http://seddit.seanik.codes
 
 
+Seddit is a Reddit clone built as a single page application in Vanilla JavaScript.
+
+
+---
+
 ## Seddit - Introduction
 
 JavaScript is used increasingly to provide a native-like application experience in the web. One
