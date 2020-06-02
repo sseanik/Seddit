@@ -3,7 +3,7 @@
 
 Seddit is a Reddit clone built as a single page application in Vanilla JavaScript. This web application was developed for a Software Construction project where the backend was provided by course staff and the task was to write a javascript frontend.
 
-[All developed code is located here](https://github.com/sseanik/Seddit/tree/master/frontend/src)
+[JavaScript Code located here](https://github.com/sseanik/Seddit/tree/master/frontend/src)
 
 
 ---
