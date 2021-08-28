@@ -6,6 +6,7 @@
 
 import os, sys, sqlite3
 
+
 DATABASE_URL = 'https://cgi.cse.unsw.edu.au/~cs2041/19T2/seddit.sqlite3'
 
 def main(host='0.0.0.0', port=5001):
