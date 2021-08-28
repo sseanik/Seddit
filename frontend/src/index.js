@@ -6,14 +6,14 @@
  * Updated 2020.
  */
 
-import { createBanner, createBasePage } from "./Feed/base.js";
-import { createLogin } from "./Auth/login.js";
-import { createSignUp } from "./Auth/signup.js";
-import { profilePage } from "./User/profile.js";
+import { createBanner, createBasePage } from './Feed/base.js';
+import { createLogin } from './Auth/login.js';
+import { createSignUp } from './Auth/signup.js';
+import { profilePage } from './User/profile.js';
 
-const API_URL = "http://104.248.151.163:5001";
+const API_URL = 'https://sedddit.herokuapp.com';
 
-const root = document.getElementById("root");
+const root = document.getElementById('root');
 
 createBanner(API_URL);
 createBasePage(API_URL, 0);
