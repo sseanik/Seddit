@@ -10,7 +10,7 @@ idna==2.8
 itsdangerous==0.24
 Jinja2==2.11.3
 jsonschema==3.0.1
-Pillow==8.1.1
+Pillow==8.2.0
 pyrsistent==0.15.3
 pytz==2019.1
 requests==2.22.0
