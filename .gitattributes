@@ -1,1 +1,2 @@
-backend/* linguist-vendored=true
+* linguist-vendored
+*.js linguist-vendored=false
