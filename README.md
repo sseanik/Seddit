@@ -8,11 +8,10 @@ Seddit is a Reddit clone built as a single page application in Vanilla JavaScrip
 
 For a non-logged in user, they will have limited visibility of features and are only able to browse 'Public Posts'. A dummy user (Mary) has been prefilled in the Login modal to view further demo functionality.
 
-### Deployment
-
-The frontend is hosted on Vercel. The backend, which has been modified, is hosted on Heroku.
-
 ### [Original Spec](https://github.com/sseanik/Seddit/blob/master/SPEC.md)
 
 This web application was developed for a Software Construction project in CS2041 where the backend was provided by course staff. I have written all Frontend code, where the spec and backend server are owned by UNSW CSE and the CS2041 course.
 
+### Deployment
+
+[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Fsseanik%2FSeddit)
