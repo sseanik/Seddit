@@ -14,4 +14,5 @@ This web application was developed for a Software Construction project in CS2041
 
 ### Deployment
 
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Fsseanik%2FSeddit)
+[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Fsseanik%2FSeddit) [![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy)
+
