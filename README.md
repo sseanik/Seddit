@@ -10,5 +10,5 @@ For a non-logged in user, they will have limited visibility of features and are 
 
 ### [Original Spec](https://github.com/sseanik/Seddit/blob/master/SPEC.md)
 
-This web application was developed for a Software Construction project in CS2041 where the backend was provided by course staff. I have written all the code, and the spec is owned by UNSW CSE and the CS2041 course.
+This web application was developed for a Software Construction project in CS2041 where the backend was provided by course staff. I have written all Frontend code, where the spec and backend server are owned by UNSW CSE and the CS2041 course.
 
