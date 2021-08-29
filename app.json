@@ -1,0 +1,6 @@
+{
+  "name": "Seddit Backend",
+  "description": "A Flask Backend and SQLite3 Database",
+  "repository": "https://github.com/sseanik/Seddit/tree/heroku",
+  "keywords": ["flask", "sqlite"]
+}
