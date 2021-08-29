@@ -1,2 +1,3 @@
-* linguist-vendored
-*.js linguist-vendored=false
+#* linguist-vendored
+#*.js linguist-vendored=false
+backend/* linguist-vendored=true
