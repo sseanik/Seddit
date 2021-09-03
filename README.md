@@ -11,6 +11,12 @@ Seddit is a Reddit clone built as a single page application in Vanilla JavaScrip
 
 For a non-logged in user, they will have limited visibility of features and are only able to browse 'Public Posts'. A dummy user (Mary) has been prefilled in the Login modal to view further demo functionality.
 
+## Screenshots
+
+![Feed](https://github.com/sseanik/Seddit/blob/master/screenshots/feed.png)
+![Post](https://github.com/sseanik/Seddit/blob/master/screenshots/postView.png)
+![Profile](https://github.com/sseanik/Seddit/blob/master/screenshots/profile.png)
+
 ## [Original Spec](https://github.com/sseanik/Seddit/blob/master/SPEC.md)
 
 This web application was developed for a Software Construction project in CS2041 where the backend was provided by course staff. I have written all Frontend code, where the spec and backend server are owned by UNSW CSE and the CS2041 course.
