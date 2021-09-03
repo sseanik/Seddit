@@ -2,7 +2,7 @@
  * Frontend Skeleton written by A. Hinds with Z. Afzal 2018 for UNSW CSE.
  * Updated 2019.
  *
- * Frontend functionality written by Sean Smith for a COMP2041 Project
+ * Frontend functionality written by Sean Smith for a CS2041 Project
  * Updated 2020.
  */
 
